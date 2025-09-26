@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunea Glam - Medidor de Anel</title>
+  <style>
+    :root {
+      --bege: #FAF9F6;
+      --dourado: #B08D2D;
+      --dourado-escuro: #8C6F1E;
+      --preto: #222;
+    }
+    body {
+      background-color: var(--bege);
+      color: var(--preto);
+      font-family: 'Times New Roman', serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header { padding: 40px 20px; }
+    .logo-text { font-size: 2.5rem; font-weight: bold; color: var(--dourado); letter-spacing: 2px; }
+    .subtitle { font-size: 1rem; color: var(--preto); margin-top: 5px; }
+    .container { padding: 20px; max-width: 800px; margin: 0 auto; }
+    .step { margin: 30px 0; }
+    .step h2 { color: var(--dourado); }
+    .d-none { display: none; }
+    .d-block { display: block; }
+    .btn { display: inline-block; background-color: var(--dourado); color: var(--bege); border: none; border-radius: 4px; padding: 10px 18px; margin-top: 15px; cursor: pointer; transition: 0.3s; }
+    .btn:hover { background-color: var(--dourado-escuro); color: #fff; }
+    .div-progress { margin-top: 30px; }
+    .progress-label { list-style: none; padding: 0; display: flex; justify-content: center; gap: 15px; font-weight: bold; }
+    .progress-label li { color: var(--preto); }
+    .progress-label li.active { color: var(--dourado); }
+    .progress-bar { background: #ddd; height: 5px; width: 80%; margin: 10px auto; border-radius: 5px; }
+    .progress-bar-checked { background: var(--dourado); height: 5px; width: 50%; border-radius: 5px; }
+    .measurer-area-ring { margin: 20px auto; display: flex; justify-content: center; align-items: center; }
+    .measurer-ring { border: 2px solid var(--dourado); border-radius: 50%; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; font-weight: bold; color: var(--dourado); }
+    .medidor-seuanel-result { margin-top: 10px; font-weight: bold; color: var(--dourado); }
+    footer { margin-top: 50px; padding: 20px; background: var(--bege); color: var(--preto); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo-text">LUNEA GLAM</h1>
+    <p class="subtitle">Descubra o tamanho perfeito do seu anel</p>
+  </header>
+  <main class="container">
+    <div class="steps">
+      <div class="step d-block" data-step="1">
+        <h2>Passo 1</h2>
+        <p>Ajuste o cartão para calibrar.</p>
+        <input type="range" id="range-medidor-cartao" class="js-range" min="40" max="70" value="53">
+        <div class="medidor-cartao-result"></div>
+        <button class="btn js-step-next">Próximo</button>
+      </div>
+      <div class="step d-none" data-step="2">
+        <h2>Passo 2</h2>
+        <p>Coloque o anel sobre o círculo e ajuste até coincidir.</p>
+        <input type="range" id="range-medidor-anel" class="js-range" min="0" max="100" value="50">
+        <div class="measurer-area-ring"><div class="measurer-ring"></div></div>
+        <div class="medidor-seuanel-result"></div>
+        <button class="btn js-step-restart">Reiniciar</button>
+      </div>
+    </div>
+    <div class="div-progress">
+      <ul class="progress-label">
+        <li data-step="1" data-progress="50%" class="active">1</li>
+        <li data-step="2" data-progress="100%">2</li>
+      </ul>
+      <div class="progress-bar"><div class="progress-bar-checked"></div></div>
+    </div>
+  </main>
+  <footer><p>© 2025 Lunea Glam - Semi Joias</p></footer>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    window.MVL = {};
+    MVL.measurer = {
+      currentStep: 1,
+      sizeRef: 53.98,
+      range: {
+        ref: [
+          {min: 0, max: 12.55, num: "5-"},
+          {min: 12.56, max: 12.91, num: 4},
+          {min: 12.92, max: 13.27, num: 5},
+          {min: 13.28, max: 13.61, num: 6},
+          {min: 13.62, max: 13.94, num: 7},
+          {min: 13.95, max: 14.24, num: 8},
+          {min: 14.25, max: 14.62, num: 9},
+          {min: 14.63, max: 14.98, num: 10},
+          {min: 14.99, max: 15.34, num: 11},
+          {min: 15.35, max: 15.70, num: 12},
+          {min: 15.71, max: 16.03, num: 13},
+          {min: 16.04, max: 16.35, num: 14},
+          {min: 16.36, max: 16.69, num: 15},
+          {min: 16.7,  max: 17.01, num: 16},
+          {min: 17.02, max: 17.33, num: 17},
+          {min: 17.34, max: 17.72, num: 18},
+          {min: 17.73, max: 18.02, num: 19},
+          {min: 18.03, max: 18.38, num: 20},
+          {min: 18.39, max: 18.71, num: 21},
+          {min: 18.72, max: 19.05, num: 22},
+          {min: 19.06, max: 19.40, num: 23},
+          {min: 19.41, max: 19.77, num: 24},
+          {min: 19.78, max: 20.14, num: 25},
+          {min: 20.15, max: 20.49, num: 26},
+          {min: 20.5,  max: 20.81, num: 27},
+          {min: 20.82, max: 21.14, num: 28},
+          {min: 21.15, max: 21.47, num: 29},
+          {min: 21.48, max: 21.78, num: 30},
+          {min: 21.79, max: 22.13, num: 31},
+          {min: 22.14, max: 22.50, num: 32},
+          {min: 22.51, max: 22.90, num: 33},
+          {min: 22.91, max: 23.30, num: 34},
+          {min: 23.31, max: 9999, num: "34+"}
+        ],
+        init: function(){
+          var cartaoVal = $('#range-medidor-cartao').val();
+          var anelVal = $('#range-medidor-anel');
+          var seuAnel = $('.medidor-seuanel-result');
+          var anel = $('.measurer-ring');
+          var resultMM = (anelVal.val()/100) * MVL.measurer.sizeRef;
+          var resultNum = "?";
+          MVL.measurer.range.ref.map(function(v){
+            if(resultMM >= v.min && resultMM <= v.max){ resultNum = v.num; }
+          });
+          seuAnel.html(resultMM.toFixed(2)+"mm<br/>Número: "+resultNum);
+          anel.text(resultNum);
+          anel.css({width: anelVal.val()+"%", height: anelVal.val()+"%"});
+        }
+      },
+      changeStep: function(){
+        var i = MVL.measurer.currentStep;
+        var timer = 500;
+        var curretStep = $('.steps .step.d-block');
+        var step = $('.steps .step[data-step="'+i+'"]');
+        var progress = $('.div-progress>.progress-label>li[data-step="'+i+'"]');
+        var percent = $(progress).data('progress');
+        curretStep.animate({opacity:0},timer);
+        setTimeout(function(){
+          step.siblings().addClass('d-none').removeClass('d-block');
+          step.css({opacity:0});
+          step.addClass('d-block').removeClass('d-none');
+          step.animate({opacity:"100%"},timer);
+          $(progress).addClass('active');
+          $(progress).siblings().removeClass('active');
+          $('.progress-bar-checked').css({width: percent});
+        },timer);
+      }
+    };
+    $('.js-range').on('input',function(){ MVL.measurer.range.init(); });
+    MVL.measurer.range.init();
+    $('.js-step-next').on('click',function(e){
+      e.preventDefault();
+      MVL.measurer.currentStep++;
+      MVL.measurer.changeStep();
+      setTimeout(function(){ MVL.measurer.range.init(); },500);
+    });
+    $('.js-step-restart').on('click',function(e){
+      e.preventDefault();
+      MVL.measurer.currentStep = 1;
+      MVL.measurer.changeStep();
+    });
+  </script>
+</body>
+</html>
