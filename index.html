@@ -35,7 +35,17 @@
     .progress-label li.active { color: var(--dourado); }
     .progress-bar { background: #ddd; height: 5px; width: 80%; margin: 10px auto; border-radius: 5px; }
     .progress-bar-checked { background: var(--dourado); height: 5px; width: 50%; border-radius: 5px; }
-    .measurer-area-ring { margin: 20px auto; display: flex; justify-content: center; align-items: center; }
+    { margin: 20px auto; display: flex; justify-content: center; align-items: center; }.measurer-ring {
+  border: 2px solid var(--dourado);
+  border-radius: 50%;
+  width: 100px;
+  aspect-ratio: 1 / 1; /* garante que fique sempre um círculo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: var(--dourado);
+}
     .measurer-ring { border: 2px solid var(--dourado); border-radius: 50%; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; font-weight: bold; color: var(--dourado); }
     .medidor-seuanel-result { margin-top: 10px; font-weight: bold; color: var(--dourado); }
     footer { margin-top: 50px; padding: 20px; background: var(--bege); color: var(--preto); font-size: 0.9rem; }
